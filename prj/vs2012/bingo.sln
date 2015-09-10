@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bingo_client", "bingo_client\bingo_client.vcxproj", "{A74A9748-9CC7-44AF-80B6-FE2CD90AFB07}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bingo_server", "bingo_server\bingo_server.vcxproj", "{E105B1FA-928B-4C10-A649-DBFF014EEBA5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A74A9748-9CC7-44AF-80B6-FE2CD90AFB07}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A74A9748-9CC7-44AF-80B6-FE2CD90AFB07}.Debug|Win32.Build.0 = Debug|Win32
+		{A74A9748-9CC7-44AF-80B6-FE2CD90AFB07}.Release|Win32.ActiveCfg = Release|Win32
+		{A74A9748-9CC7-44AF-80B6-FE2CD90AFB07}.Release|Win32.Build.0 = Release|Win32
+		{E105B1FA-928B-4C10-A649-DBFF014EEBA5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E105B1FA-928B-4C10-A649-DBFF014EEBA5}.Debug|Win32.Build.0 = Debug|Win32
+		{E105B1FA-928B-4C10-A649-DBFF014EEBA5}.Release|Win32.ActiveCfg = Release|Win32
+		{E105B1FA-928B-4C10-A649-DBFF014EEBA5}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
