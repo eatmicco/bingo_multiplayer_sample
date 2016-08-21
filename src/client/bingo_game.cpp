@@ -11,7 +11,7 @@ BingoGame::BingoGame() : _finish(false), _waiting_data(false), _player_id(-1), _
 void BingoGame::run()
 {
 	printf("Welcome to Bingo!\n");
-	printf("Connect to server? ");
+	printf("Connect to server (yes/no)? ");
 	char command[256];
 	get_command(command, 256);
 	
@@ -59,12 +59,8 @@ void BingoGame::query_command()
 		printf("icon : ");
 		get_command(icon, 3);
 		if (_player_id == -1) {
-			//_player_id = board.add_new_player();
-			BingoData data;
-			strcpy(data.key, "DATA");
-			data.type = BingoDataType::PLAY;
-			data.param.representation.icon = icon[0];
-			_network->send_to_server((char*)&data, sizeof(data));
+
+			add_new_player(icon[0]);
 			_waiting_data = true;
 			_in_turn = false;
 		}
@@ -91,28 +87,47 @@ void BingoGame::query_command()
 		}
 		if (x > -1 && y > -1)
 		{
-			//board.put_item_to_board(x, y, _player_id);
-			BingoData data;
-			strcpy(data.key, "DATA");
-			data.type = BingoDataType::PUT;
-			data.player_id = _player_id;
-			data.param.pos.x = x;
-			data.param.pos.y = y;
-			_network->send_to_server((char*)&data, sizeof(data));
+			put_to_board(_player_id, x, y);
+
 			_waiting_data = true;
 			_in_turn = false;
 		}
 	}
 	else if (l > 0 && strcmp(command, "show") == 0)
 	{
-		//board.show();
-		BingoData data;
-		strcpy(data.key, "DATA");
-		data.type = BingoDataType::SHOW;
-		_network->send_to_server((char*)&data, sizeof(data));
+		show();
+
 		_waiting_data = true;
 	}
 	printf("\n");
+}
+
+void BingoGame::add_new_player(char icon)
+{
+	BingoData data;
+	strcpy(data.key, "DATA");
+	data.type = BingoDataType::PLAY;
+	data.param.representation.icon = icon;
+	_network->send_to_server((char*)&data, sizeof(data));
+}
+
+void BingoGame::put_to_board(unsigned int player_id, unsigned short x, unsigned short y)
+{
+	BingoData data;
+	strcpy(data.key, "DATA");
+	data.type = BingoDataType::PUT;
+	data.player_id = player_id;
+	data.param.pos.x = x;
+	data.param.pos.y = y;
+	_network->send_to_server((char*)&data, sizeof(data));
+}
+
+void BingoGame::show()
+{
+	BingoData data;
+	strcpy(data.key, "DATA");
+	data.type = BingoDataType::SHOW;
+	_network->send_to_server((char*)&data, sizeof(data));
 }
 
 unsigned int BingoGame::receiving_data(void *param)
@@ -125,7 +140,7 @@ unsigned int BingoGame::receiving_data(void *param)
 	while (true)
 	{
 		result = game->_network->receive_packets(buffer);
-		if (result == 0)	//close connection
+		if (result == 0)//close connection
 		{
 			break;
 		}
@@ -166,7 +181,6 @@ unsigned int BingoGame::receiving_data(void *param)
 				}
 			}
 
-			//printf("Data received.\n");
 			game->_waiting_data = false;
 		}
 		else
@@ -183,8 +197,8 @@ unsigned int BingoGame::receiving_data(void *param)
 				}
 				printf("\n");
 			}
+			printf("\n");
 
-			//printf("View received.\n");
 			game->_waiting_data = false;
 		}
 	}

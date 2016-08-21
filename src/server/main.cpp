@@ -76,6 +76,10 @@ unsigned int _stdcall receiving_data(void *data)
 					broadcast_to_clients((char*)&send_data, sizeof(send_data));
 					printf("Not yet Bingo.\n");
 
+					char view[BOARD_SIDE * BOARD_SIDE];
+					board.create_view(view);
+					broadcast_to_clients(view, sizeof(view));
+
 					BingoData turn_data;
 					strcpy(turn_data.key, "DATA");
 					turn_data.type = BingoDataType::TURN;

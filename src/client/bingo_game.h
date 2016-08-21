@@ -15,6 +15,10 @@ private:
 
 	void get_command(char *buffer, int len);
 	void query_command();
+	void show();
+	void add_new_player(char icon);
+	void put_to_board(unsigned int player_id, unsigned short x, unsigned short y);
+
 	static unsigned int _stdcall receiving_data(void *param);
 public:
 	BingoGame();
